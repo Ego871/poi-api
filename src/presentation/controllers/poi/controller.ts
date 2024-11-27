@@ -42,7 +42,7 @@ export class POIController{
                 imageUrl,
                 category,
                 description,
-                isSent: false
+                isSent: true
             });
 
             const updatedPOI = await POIModel.findById(id);
