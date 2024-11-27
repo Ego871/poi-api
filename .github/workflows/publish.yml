@@ -1,0 +1,27 @@
+name: Docker Build & Publish
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build-and-push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone code
+              uses: actions/checkout@v2
+
+            - name: Login to Docker hub
+              run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
+            - name: Build Docker Image
+              run: docker build -t arnulfo871/poi-api:${{ github.sha }} .
+
+            - name: Tag Latest
+              run: docker tag arnulfo871/poi-api:${{ github.sha }} arnulfo871/poi-api:latest
+
+            - name: Push Docker Image
+              run: |
+                docker push arnulfo871/poi-api:${{ github.sha }}
+                docker push arnulfo871/poi-api:latest
