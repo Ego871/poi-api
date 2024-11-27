@@ -25,3 +25,4 @@ jobs:
               run: |
                 docker push arnulfo871/poi-api:${{ github.sha }}
                 docker push arnulfo871/poi-api:latest
+                
