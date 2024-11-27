@@ -1,4 +1,6 @@
 import cron from 'node-cron';
+import 'dotenv/config'
+import { envs } from '../../config/envs.plugin';
 import { EmailService } from '../services/email.service';
 import { generatePOIEmailTemplate } from '../templates/email.template';
 import { POIModel } from '../../data/models/poi.model';
@@ -21,7 +23,7 @@ export const emailJob = () => {
                     try {
                         const htmlBody = generatePOIEmailTemplate(POI.lat, POI.lng, POI.title, POI.imageUrl, POI.category, POI.description)
                         await emailService.sendEmail({
-                            to: "josearnulfogaytanalvarez@gmail.com",
+                            to: envs.MAIL_USER,
                             subject: "Nuevo Punto de Interés añadido",
                             htmlBody: htmlBody
                         });
